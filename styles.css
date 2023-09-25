@@ -70,7 +70,27 @@ body {
     box-shadow: 0 10px 2px 0px hsla(234, 17%, 12%, 1);
     border-radius: .3rem;
     overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 600px;
 }
+
+.display::before {
+    content: " ";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 50%;
+    transform-origin: center top;
+    transform: rotateX(180deg);
+    background: linear-gradient(180deg, hsla(235, 16%, 14%, .4) 50%, hsla(235, 16%, 14%, .4));
+    transition: 0.2s ease-in transform;
+}
+
+.flipped {
+    transform: rotateX(0);
+}
+
 
 .display h2 {
     color: var(--Soft-red);
@@ -84,15 +104,19 @@ body {
 .flip-top {
     position: absolute;
     top: 0;
-    background-color: var(--Very-dark-blue);
-    opacity: .3;
+    /* background-color: var(--Very-dark-blue);
+    opacity: .3; */
     height: 50%;
     width: 100%;
     border-radius: .3rem .3rem 0 0;
     z-index: 8;
 }
 
-.flip-bottom {
+.flip-top:hover {}
+
+
+
+*/ .flip-bottom {
     position: absolute;
     bottom: 0;
     background-color: var(--Dark-desaturated-blue);
