@@ -26,8 +26,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const timeDifference = selectedDate - currentDate;
 
             if (timeDifference <= 0) {
-                clearInterval(interval);
-                alert("Lift off!!");
+                const countdownDisplay = document.querySelector('.countdown')
+                countdownDisplay.classList.add('hidden')
+                title.classList.add('hidden')
+                inputContainer.classList.add('hidden')
+                icon.classList.add('moving-up')
                 return;
             }
 
