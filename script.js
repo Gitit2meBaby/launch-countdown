@@ -17,22 +17,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function countdown() {
         seconds.textContent = secondsCount;
+        secondsContainer.classList.add('flipped');
         setTimeout(() => {
-            console.log(secondsContainer);
-            secondsContainer.classList.add('flipped');
-        }, 100);
+            secondsContainer.classList.remove('flipped');
+        }, 200);
 
         if (secondsCount === 0) {
             secondsCount = 59;
             minutesCount--;
 
+            minutesContainer.classList.add('flipped');
+            setTimeout(() => {
+                minutesContainer.classList.remove('flipped');
+            }, 200);
+
             if (minutesCount === 0) {
                 minutesCount = 59;
                 hoursCount--;
 
+                hoursContainer.classList.add('flipped');
+                setTimeout(() => {
+                    hoursContainer.classList.remove('flipped');
+                }, 200);
+
                 if (hoursCount === 0) {
                     hoursCount = 23;
                     daysCount--;
+
+                    daysContainer.classList.add('flipped');
+                    setTimeout(() => {
+                        daysContainer.classList.remove('flipped');
+                    }, 200);
 
                     if (daysCount === 0) {
                         clearInterval(interval);
@@ -40,10 +55,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
 
-                flipCard('hoursContainer');
             }
 
-            flipCard('minutesContainer');
         } else {
             secondsCount--;
         }
