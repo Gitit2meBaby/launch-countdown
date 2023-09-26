@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const secondsContainer = document.querySelector('#secondsContainer');
     const minutesContainer = document.querySelector('#minutesContainer');
     const hoursContainer = document.querySelector('#hoursContainer');
+    const daysContainer = document.querySelector('#daysContainer');
 
     let daysCount = 10;
     let hoursCount = 12;
@@ -15,7 +16,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let interval = setInterval(countdown, 1000);
 
+    let isUserInput = false;
+
     function countdown() {
+        if (isUserInput) {
+            const currentDate = new Date();
+            const selectedDate = new Date(document.querySelector('#dateInput').value);
+
+            const timeDifference = selectedDate - currentDate;
+
+            if (timeDifference <= 0) {
+                clearInterval(interval);
+                alert("Lift off!!");
+                return;
+            }
+
+            secondsCount = Math.floor((timeDifference / 1000) % 60);
+            minutesCount = Math.floor((timeDifference / 1000 / 60) % 60);
+            hoursCount = Math.floor((timeDifference / (1000 * 60 * 60)) % 24);
+            daysCount = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        }
+
         seconds.textContent = secondsCount;
         secondsContainer.classList.add('flipped');
         setTimeout(() => {
@@ -51,12 +72,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     if (daysCount === 0) {
                         clearInterval(interval);
-                        alert("Lift off!!");
+                        const countdownDisplay = document.querySelector('.countdown')
+                        countdownDisplay.classList.add('hidden')
+                        title.classList.add('hidden')
+                        inputContainer.classList.add('hidden')
+                        icon.classList.add('moving-up')
                     }
                 }
-
             }
-
         } else {
             secondsCount--;
         }
@@ -65,4 +88,25 @@ document.addEventListener('DOMContentLoaded', function () {
         hours.textContent = hoursCount;
         minutes.textContent = minutesCount;
     }
+
+    // ENTER YOUR OWN DATE FOR COUNTDOWN
+    const icon = document.querySelector('.input-icon');
+    const inputContainer = document.querySelector('.input-container');
+    icon.addEventListener('click', () => {
+        inputContainer.classList.remove('hidden')
+        icon.classList.add('hidden')
+    })
+    const dateInput = document.querySelector('#dateInput');
+    const dateText = document.querySelector('#dateText');
+    const clickText = document.querySelector('#clickText')
+    const title = document.querySelector('#title')
+    dateInput.addEventListener('change', () => {
+        isUserInput = true;
+        dateInput.classList.add('new-date')
+        dateText.style.display = "none"
+        icon.classList.remove('hidden')
+        clickText.classList.add('hidden')
+        title.textContent = "Your launching soon!"
+    });
+
 });
